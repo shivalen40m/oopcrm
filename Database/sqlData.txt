@@ -1,0 +1,21 @@
+-- password is admin123
+INSERT INTO users (username, first_name, last_name, password_hash, role)
+VALUES
+    ('admin', 'System', 'Administrator', '240be518fabd2724fdfccbe4a7d8b6c4f9c2b2c0fdbf0c0e5e4b6a5c3a9e4d2b8', 'ADMIN'),
+
+    ('sales1', 'John', 'Smith', '240be518fabd2724fdfccbe4a7d8b6c4f9c2b2c0fdbf0c0e5e4b6a5c3a9e4d2b8', 'SALES'),
+
+    ('service1', 'Anna', 'Brown', '240be518fabd2724fdfccbe4a7d8b6c4f9c2b2c0fdbf0c0e5e4b6a5c3a9e4d2b8', 'SERVICE');
+
+INSERT INTO vehicles (vin, brand, model, year, price, mileage, status)
+VALUES
+    ('VIN10001','Toyota','Hilux',2022,1500000,12000,'AVAILABLE'),
+
+    ('VIN10002','Honda','Civic',2021,1800000,15000,'AVAILABLE'),
+
+    ('VIN10003','BMW','320i',2023,3500000,5000,'RESERVED'),
+
+    ('VIN10004','Mercedes','C200',2020,3000000,22000,'AVAILABLE'),
+
+    ('VIN10005','Ford','Focus',2019,1200000,40000,'SOLD');
+
