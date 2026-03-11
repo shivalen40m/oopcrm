@@ -3,10 +3,10 @@ package com.dms.ui;
 import com.dms.dao.*;
 import com.dms.model.*;
 import com.dms.util.Utils;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.sql.Date;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class SalesPanel extends JPanel {
     private JTable salesTable;
@@ -25,7 +25,7 @@ public class SalesPanel extends JPanel {
         title.setFont(new Font("Arial", Font.BOLD, 24));
         add(title, BorderLayout.NORTH);
 
-        String[] columns = {"Sale ID", "Vehicle ID", "Customer ID", "Employee ID", "Sale Date", "Price", "Payment"};
+        String[] columns = {"Sale ID", "Vehicle ID", "Customer", "Employee ID", "Sale Date", "Price", "Payment"};
         tableModel = new DefaultTableModel(columns, 0);
         salesTable = new JTable(tableModel);
         add(new JScrollPane(salesTable), BorderLayout.CENTER);
@@ -51,7 +51,7 @@ public class SalesPanel extends JPanel {
         tableModel.setRowCount(0);
         try {
             for (Sale s : saleDAO.getAllSales()) {
-                tableModel.addRow(new Object[]{s.getId(), s.getVehicleId(), s.getCustomerId(), 
+                tableModel.addRow(new Object[]{s.getId(), s.getVehicleId(), s.getCustomerId() + " - " + customerDAO.getCustomerById(s.getCustomerId()).getName(),
                     s.getEmployeeId(), s.getSaleDate(), s.getSalePrice(), s.getPaymentMethod()});
             }
         } catch (Exception e) {
@@ -160,6 +160,7 @@ public class SalesPanel extends JPanel {
             Sale sale = saleDAO.getSaleById(saleId);
             Customer customer = customerDAO.getCustomerById(sale.getCustomerId());
             Vehicle vehicle = vehicleDAO.getVehicleById(sale.getVehicleId());
+            String employeename = UserDAO.getUsernameById(sale.getEmployeeId());
 
             JDialog dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), "Sale Details", true);
             dialog.setLayout(new GridLayout(10, 2, 10, 10));
@@ -180,7 +181,7 @@ public class SalesPanel extends JPanel {
             dialog.add(new JLabel("Payment Method:"));
             dialog.add(new JLabel(sale.getPaymentMethod()));
             dialog.add(new JLabel("Employee ID:"));
-            dialog.add(new JLabel(String.valueOf(sale.getEmployeeId())));
+            dialog.add(new JLabel(String.valueOf(sale.getEmployeeId()) + " - " + employeename));
 
             JButton closeButton = new JButton("Close");
             closeButton.addActionListener(e -> dialog.dispose());

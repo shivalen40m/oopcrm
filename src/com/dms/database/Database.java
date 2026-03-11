@@ -1,6 +1,7 @@
 package com.dms.database;
 
 import com.dms.model.Customer;
+import com.dms.model.Sale;
 import com.dms.model.User;
 import com.dms.model.Vehicle;
 import com.dms.util.ConfigLoader;
@@ -60,6 +61,7 @@ public class Database {
         return null;
     }
 
+    // Return all customers from the database
     public static List<Customer> getAllCustomers(){
         List<Customer> customers = new ArrayList<>();
         String sql = "SELECT * FROM customers ORDER BY id";
@@ -83,6 +85,47 @@ public class Database {
         return customers;
     }
 
+
+    public static List<Sale> getAllSales(){
+        List<Sale> sales = new ArrayList<>();
+        String sql = "SELECT * FROM sales ORDER BY sale_date DESC";
+        
+        try (Connection conn = Database.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                Sale s = new Sale();
+                s.setId(rs.getInt("id"));
+                s.setVehicleId(rs.getInt("vehicle_id"));
+                s.setCustomerId(rs.getInt("customer_id"));
+                s.setEmployeeId(rs.getInt("employee_id"));
+                s.setSaleDate(rs.getDate("sale_date"));
+                s.setSalePrice(rs.getDouble("sale_price"));
+                s.setPaymentMethod(rs.getString("payment_method"));
+                sales.add(s);
+            }
+             } catch (SQLException e) {
+            System.err.println("Error fetching customers: " + e.getMessage());
+        }
+        return sales;
+    }
+
+    // Return total revenue from all sales
+    public static double getTotalRevenue() {
+        double totalRevenue = 0.0;
+        String sql = "SELECT SUM(sale_price) AS total FROM sales";
+        try (Connection conn = Database.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            if (rs.next()) {
+                totalRevenue = rs.getDouble("total");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error calculating total revenue: " + e.getMessage());
+        }
+        return totalRevenue;
+    }
     
     // Vehicle CRUD operations
     public static List<Vehicle> getAllVehicles() {

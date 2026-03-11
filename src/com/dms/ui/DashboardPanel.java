@@ -26,10 +26,12 @@ public class DashboardPanel extends JPanel {
 
         int vehicleCount = Database.getAllVehicles().size();
         int customerCount = Database.getAllCustomers().size();
+        int salesCount = Database.getAllSales().size();
+        double totalRevenue = Database.getTotalRevenue();
         statsPanel.add(createStatCard("Total Vehicles", String.valueOf(vehicleCount), new Color(0, 123, 255)));
         statsPanel.add(createStatCard("Total Customers", String.valueOf(customerCount), new Color(40, 167, 69)));
-        statsPanel.add(createStatCard("Total Sales", "0", new Color(255, 193, 7)));
-        statsPanel.add(createStatCard("Total Revenue", "$0.00", new Color(220, 53, 69)));
+        statsPanel.add(createStatCard("Total Sales", String.valueOf(salesCount), new Color(255, 193, 7)));
+        statsPanel.add(createStatCard("Total Revenue", String.valueOf(totalRevenue), new Color(220, 53, 69)));
 
         add(statsPanel, BorderLayout.CENTER);
 

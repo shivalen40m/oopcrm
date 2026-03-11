@@ -194,13 +194,13 @@ public class MainFrame extends JFrame {
                 showPanel(new SalesPanel());
                 break;
             case "Service":
-                showPanel(new JLabel("Service Panel - Coming Soon", SwingConstants.CENTER));
+                showPanel(new ServicePanel());
                 break;
             case "Reports":
                 showPanel(new JLabel("Reports Panel - Coming Soon", SwingConstants.CENTER));
                 break;
             case "Users":
-                showPanel(new JLabel("Users Panel - Coming Soon", SwingConstants.CENTER));
+                showPanel(new UserPanel());
                 break;
         }
     }
