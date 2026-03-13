@@ -169,10 +169,10 @@ public class MainFrame extends JFrame {
         if (role.equals("ADMIN") || role.equals("SERVICE")) {
             addMenuButton(sidebar, "Service", true);
         }
-        
+        /* 
         if (role.equals("ADMIN") || role.equals("SALES")) {
             addMenuButton(sidebar, "Reports", true);
-        }
+        } */
         
         if (role.equals("ADMIN")) {
             addMenuButton(sidebar, "Users", true);

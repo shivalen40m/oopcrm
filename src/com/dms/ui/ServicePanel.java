@@ -43,7 +43,7 @@ public class ServicePanel extends JPanel {
         searchPanel.add(showAllButton);
         add(searchPanel, BorderLayout.NORTH);
 
-        String[] columns = {"ID", "Vehicle ID", "Customer ID", "Description", "Cost", "Service Date"};
+        String[] columns = {"ID", "Vehicle ID", "Customer", "Description", "Cost", "Service Date"};
         tableModel = new DefaultTableModel(columns, 0);
         serviceTable = new JTable(tableModel);
         add(new JScrollPane(serviceTable), BorderLayout.CENTER);
@@ -70,10 +70,11 @@ public class ServicePanel extends JPanel {
         tableModel.setRowCount(0);
         try {
             for (Service s : serviceDAO.getAllServices()) {
+                String customerName = getCustomerName(s.getCustomerId());
                 tableModel.addRow(new Object[]{
                     s.getId(), 
                     s.getVehicleId(), 
-                    s.getCustomerId(), 
+                    customerName, 
                     s.getDescription(), 
                     String.format("$%.2f", s.getCost()), 
                     s.getServiceDate()
@@ -95,10 +96,11 @@ public class ServicePanel extends JPanel {
             int vehicleId = Integer.parseInt(vehicleIdStr);
             tableModel.setRowCount(0);
             for (Service s : serviceDAO.getServicesByVehicle(vehicleId)) {
+                String customerName = getCustomerName(s.getCustomerId());
                 tableModel.addRow(new Object[]{
                     s.getId(), 
                     s.getVehicleId(), 
-                    s.getCustomerId(), 
+                    customerName, 
                     s.getDescription(), 
                     String.format("$%.2f", s.getCost()), 
                     s.getServiceDate()
@@ -109,6 +111,22 @@ public class ServicePanel extends JPanel {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
         }
+    }
+
+    private String getCustomerName(int customerId) {
+        if (customerId == 0) {
+            return "Dealership";
+        }
+        try {
+            for (Customer c : customerDAO.getAllCustomers()) {
+                if (c.getId() == customerId) {
+                    return c.getId() + " - " + c.getName();
+                }
+            }
+        } catch (Exception e) {
+            return "Unknown";
+        }
+        return "Unknown";
     }
 
     private void showAddDialog() {
@@ -126,6 +144,9 @@ public class ServicePanel extends JPanel {
                 vehicleCombo.addItem(v.getId() + " - " + v.getMake() + " " + v.getModel() + " (" + v.getVin() + ")");
             }
 
+            // Add default Dealership option first
+            customerCombo.addItem("0 - Dealership (No Customer)");
+            
             List<Customer> customers = customerDAO.getAllCustomers();
             for (Customer c : customers) {
                 if (c.isActive()) {
@@ -156,8 +177,8 @@ public class ServicePanel extends JPanel {
         JButton saveButton = new JButton("Save");
         saveButton.addActionListener(e -> {
             try {
-                if (vehicleCombo.getSelectedItem() == null || customerCombo.getSelectedItem() == null) {
-                    JOptionPane.showMessageDialog(dialog, "Please select vehicle and customer");
+                if (vehicleCombo.getSelectedItem() == null) {
+                    JOptionPane.showMessageDialog(dialog, "Please select a vehicle");
                     return;
                 }
 
