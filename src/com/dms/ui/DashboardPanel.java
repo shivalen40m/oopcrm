@@ -12,9 +12,10 @@ public class DashboardPanel extends JPanel {
         setBackground(new Color(248, 249, 250));
 
         // Title
-        JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel titlePanel = new JPanel(new BorderLayout());
+        //JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         titlePanel.setBackground(new Color(248, 249, 250));
-        JLabel titleLabel = new JLabel("Dashboard");
+        JLabel titleLabel = new JLabel("Dashboard", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titlePanel.add(titleLabel);
         add(titlePanel, BorderLayout.NORTH);

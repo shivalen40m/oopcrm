@@ -24,7 +24,7 @@ public class CustomerPanel extends JPanel {
 
         JLabel title = new JLabel("Customer Management", SwingConstants.CENTER);
         title.setFont(new Font("Arial", Font.BOLD, 24));
-        add(title, BorderLayout.NORTH);
+        //add(title, BorderLayout.NORTH);
 
         JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         searchPanel.add(new JLabel("Search:"));
@@ -34,7 +34,12 @@ public class CustomerPanel extends JPanel {
         JButton searchButton = new JButton("Search");
         searchButton.addActionListener(e -> searchCustomers());
         searchPanel.add(searchButton);
-        add(searchPanel, BorderLayout.NORTH);
+        //add(searchPanel, BorderLayout.NORTH);
+
+        JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.add(title, BorderLayout.NORTH);
+        topPanel.add(searchPanel, BorderLayout.SOUTH);
+        add(topPanel, BorderLayout.NORTH);
 
         String[] columns = {"ID", "Name", "Email", "Phone", "Address", "Active"};
         tableModel = new DefaultTableModel(columns, 0);

@@ -27,7 +27,7 @@ public class ConfigLoader {
         properties.setProperty("app.name", "Dealership Management System");
         properties.setProperty("app.version", "1.0");
     }
-    
+
     public static String get(String key) {
         return properties.getProperty(key);
     }
