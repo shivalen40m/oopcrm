@@ -28,7 +28,7 @@ public class ServicePanel extends JPanel {
 
         JLabel title = new JLabel("Service Records", SwingConstants.CENTER);
         title.setFont(new Font("Arial", Font.BOLD, 24));
-        add(title, BorderLayout.NORTH);
+        //add(title, BorderLayout.NORTH);
 
         JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         searchPanel.add(new JLabel("Search by Vehicle ID:"));
@@ -41,7 +41,12 @@ public class ServicePanel extends JPanel {
         JButton showAllButton = new JButton("Show All");
         showAllButton.addActionListener(e -> loadServices());
         searchPanel.add(showAllButton);
-        add(searchPanel, BorderLayout.NORTH);
+        //add(searchPanel, BorderLayout.NORTH);
+
+        JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.add(title, BorderLayout.NORTH);
+        topPanel.add(searchPanel, BorderLayout.SOUTH);
+        add(topPanel, BorderLayout.NORTH);
 
         String[] columns = {"ID", "Vehicle ID", "Customer", "Description", "Cost", "Service Date"};
         tableModel = new DefaultTableModel(columns, 0);
