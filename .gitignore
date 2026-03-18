@@ -15,7 +15,7 @@ config.properties
 
 misc/
 main/
-README.md
+
 IMPLEMENTATION_CHECKLIST.md
 LICENSE
 documentation/
