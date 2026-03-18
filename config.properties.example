@@ -1,8 +1,0 @@
-# Database Configuration
-db.url=jdbc:postgresql://localhost:5432/dealership_db
-db.user=postgres
-db.password=your_password_here
-
-# Application Settings
-app.name=Dealership Management System
-app.version=1.0
