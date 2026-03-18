@@ -46,7 +46,8 @@ CREATE TABLE sales (
     customer_id INTEGER REFERENCES customers(id),
     employee_id INTEGER REFERENCES users(id),
     sale_date DATE DEFAULT CURRENT_DATE,
-    sale_price DECIMAL(10, 2) NOT NULL
+    sale_price DECIMAL(10, 2) NOT NULL,
+    payment_method VARCHAR(50) NOT NULL
 );
 
 -- Services table
